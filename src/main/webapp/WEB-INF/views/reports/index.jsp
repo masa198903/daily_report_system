@@ -7,6 +7,9 @@
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
+<c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
+<c:set var="commDel" value="${ForwardConst.CMD_DESTROY.getValue()}" />
+<c:set var="doWhen" value="false" /> <%--追記 --%>
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
@@ -23,6 +26,7 @@
                     <th class="report_date">日付</th>
                     <th class="report_title">タイトル</th>
                     <th class="report_action">操作</th>
+                    <th class="report_like">いいね</th>
                 </tr>
                 <c:forEach var="report" items="${reports}" varStatus="status">
                     <fmt:parseDate value="${report.reportDate}" pattern="yyyy-MM-dd" var="reportDay" type="date" />
@@ -32,6 +36,25 @@
                         <td class="report_date"><fmt:formatDate value='${reportDay}' pattern='yyyy-MM-dd' /></td>
                         <td class="report_title">${report.title}</td>
                         <td class="report_action"><a href="<c:url value='?action=${actRep}&command=${commShow}&id=${report.id}' />">詳細を見る</a></td>
+                        <td class="report_like">
+                            <c:forEach var="likedReport" items="${isLike}">
+                                    <c:if test="${likedReport.report.id == report.id}">
+                                        <c:set var="doWhen" value="true"/>
+                                        <form method="POST" action="<c:url value='?action=Like&command=${commDel}' />" >
+                                        <input type="image" src="<c:url value='/images/ThumbsupYellow.png' />" width="16px" height="16px">
+                                        <input type="hidden" name="id" value="${report.id}" />
+                                        </form>
+                                    </c:if>
+
+                           </c:forEach>
+
+                           <c:if test="${!doWhen}">
+                                <form method="POST" action="<c:url value='?action=Like&command=${commCrt}' />" >
+                                <input type="image" src="<c:url value='/images/Thumbsup.png' />" width="16px" height="16px">
+                                <input type="hidden" name="id" value="${report.id}" />
+                                </form>
+                           </c:if>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>

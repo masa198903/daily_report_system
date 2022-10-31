@@ -79,4 +79,37 @@ public class ReportConverter {
 
     }
 
+//    /**
+//     * DTOモデルのインスタンスからViewモデルのインスタンスを作成する
+//     * @param r Reportのインスタンス
+//     * @return ReportViewのインスタンス
+//     */
+//    public static ReportView toViewLike(Like l) {
+//
+//        if (l == null) {
+//            return null;
+//        }
+//
+//        return new ReportView(
+//                l.getId(),
+//                EmployeeConverter.toView(l.getEmployee()),
+//                l.getReport(),
+//    }
+//
+//    /**
+//     * DTOモデルのリストからViewモデルのリストを作成する
+//     * @param list DTOモデルのリスト
+//     * @return Viewモデルのリスト
+//     */
+//    public static List<ReportView> toViewLikeList(List<Like> listlike) {
+//        List<ReportView> evs = new ArrayList<>();
+//
+//        for (Like l : listlike) {
+//            evs.add(toView(l));
+//        }
+//
+//        return evs;
+//    }
+
+
 }

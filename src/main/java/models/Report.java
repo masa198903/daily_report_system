@@ -60,7 +60,7 @@ public class Report {
      * 日報を登録した従業員
      */
     @ManyToOne
-    @JoinColumn(name = JpaConst.REP_COL_EMP, nullable = false)
+    @JoinColumn(name = JpaConst.REP_COL_EMP, nullable = false) // employee_id
     private Employee employee;
 
     /**

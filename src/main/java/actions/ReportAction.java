@@ -12,6 +12,8 @@ import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.JpaConst;
 import constants.MessageConst;
+import models.Like;
+import services.LikeService;
 import services.ReportService;
 
 /**
@@ -21,6 +23,7 @@ import services.ReportService;
 public class ReportAction extends ActionBase {
 
     private ReportService service;
+    private LikeService servicelike;
 
     /**
      * メソッドを実行する
@@ -29,6 +32,7 @@ public class ReportAction extends ActionBase {
     public void process() throws ServletException, IOException {
 
         service = new ReportService();
+        servicelike = new LikeService();
 
         //メソッドを実行
         invoke();
@@ -45,6 +49,10 @@ public class ReportAction extends ActionBase {
         //指定されたページ数の一覧画面に表示する日報データを取得
         int page = getPage();
         List<ReportView> reports = service.getAllPerPage(page);
+//        boolean isLike = true;
+        EmployeeView loginEmployee = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+        List<Like> rid = servicelike.getLikedReport(loginEmployee);
+        request.setAttribute("isLike", rid);
 
         //全日報データの件数を取得
         long reportsCount = service.countAll();
@@ -63,7 +71,8 @@ public class ReportAction extends ActionBase {
 
         //一覧画面を表示
         forward(ForwardConst.FW_REP_INDEX);
-    }/**
+    }
+    /**
      * 新規登録画面を表示する
      * @throws ServletException
      * @throws IOException
@@ -233,7 +242,5 @@ public class ReportAction extends ActionBase {
             }
         }
     }
-
-
 
 }

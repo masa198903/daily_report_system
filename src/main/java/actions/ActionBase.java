@@ -59,7 +59,7 @@ public abstract class ActionBase {
         try {
 
             //パラメータからcommandを取得
-            String command = request.getParameter(ForwardConst.CMD.getValue());
+            String command = request.getParameter(ForwardConst.CMD.getValue()); // Chapter1.1 CMDを出力
 
             //ommandに該当するメソッドを実行する
             //(例: action=Employee command=show の場合 EmployeeActionクラスのshow()メソッドを実行する)

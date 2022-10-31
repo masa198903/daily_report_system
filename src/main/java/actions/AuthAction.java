@@ -81,7 +81,7 @@ public class AuthAction extends ActionBase {
                 //セッションにログイン完了のフラッシュメッセージを設定
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_LOGINED.getMessage());
                 //トップページへリダイレクト
-                redirect(ForwardConst.ACT_TOP, ForwardConst.CMD_INDEX);
+                redirect(ForwardConst.ACT_TOP, ForwardConst.CMD_INDEX); // TopAction の index()メソッドに飛ぶ(ActionBase.java)
             }
         } else {
             //認証失敗の場合
