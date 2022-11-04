@@ -9,7 +9,6 @@
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
 <c:set var="commDel" value="${ForwardConst.CMD_DESTROY.getValue()}" />
-<c:set var="doWhen" value="false" /> <%--追記 --%>
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
@@ -29,6 +28,7 @@
                     <th class="report_like">いいね</th>
                 </tr>
                 <c:forEach var="report" items="${reports}" varStatus="status">
+                <c:set var="doWhen" value="false"/>
                     <fmt:parseDate value="${report.reportDate}" pattern="yyyy-MM-dd" var="reportDay" type="date" />
 
                     <tr class="row${status.count % 2}">
@@ -45,21 +45,19 @@
                                         <input type="hidden" name="id" value="${report.id}" />
                                         </form>
                                     </c:if>
-
                            </c:forEach>
-
                            <c:if test="${!doWhen}">
                                 <form method="POST" action="<c:url value='?action=Like&command=${commCrt}' />" >
                                 <input type="image" src="<c:url value='/images/Thumbsup.png' />" width="16px" height="16px">
                                 <input type="hidden" name="id" value="${report.id}" />
                                 </form>
                            </c:if>
+
                         </td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
-
         <div id="pagination">
             （全 ${reports_count} 件）<br />
             <c:forEach var="i" begin="1" end="${((reports_count - 1) / maxRow) + 1}" step="1">
@@ -74,6 +72,5 @@
             </c:forEach>
         </div>
         <p><a href="<c:url value='?action=${actRep}&command=${commNew}' />">新規日報の登録</a></p>
-
     </c:param>
 </c:import>

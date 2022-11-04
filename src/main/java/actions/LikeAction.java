@@ -52,45 +52,29 @@ public class LikeAction extends ActionBase {
     public void create() throws ServletException, IOException {
 
         Employee employee = EmployeeConverter.toModel(getSessionScope(AttributeConst.LOGIN_EMP));
-        String rvid = request.getParameter("id");
+        String rvid = request.getParameter("id"); // <input>から送られてきた"id"を文字列として取得
         Report report = ReportConverter.toModel(repservice.findOne(toNumber(rvid)));
 
-        //パラメータの値をもとに日報情報のインスタンスを作成する
-        Like like = new Like();
+        Like like = new Like(); //パラメータの値をもとに日報情報のインスタンスを作成する
 
-        like.setEmployee(employee);
-        like.setReport(report);
+        like.setEmployee(employee); // Likeテーブルのカラムにログインした従業員データをセット
+        like.setReport(report); // Likeテーブルのカラムに <input>から送られてきた"id"と同じ id のレポートをセット
 
-        //日報情報登録
-        likeservice.create(like);
+        likeservice.create(like); //日報情報登録
 
-//        rv.setReportDate(toLocalDate(getRequestParam(AttributeConst.REP_DATE))); 要らない
-//        rv.setTitle(getRequestParam(AttributeConst.REP_TITLE));
-//        rv.setContent(getRequestParam(AttributeConst.REP_CONTENT));
-
-//        long reportsCount = repservice.countAll();
-
-//        putRequestScope(AttributeConst.REP_COUNT, 1); //全ての日報データの件数
-//        forward(ForwardConst.FW_REP_INDEX);
         redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);
     }
 
     public void destroy() throws ServletException, IOException {
+
         Employee employee = EmployeeConverter.toModel(getSessionScope(AttributeConst.LOGIN_EMP));
-        String rvid = request.getParameter("id");
-        Report report = ReportConverter.toModel(repservice.findOne(toNumber(rvid)));
+        String rvid = request.getParameter("id"); // <input>から送られてきた"id"を文字列として取得
+        Report report = ReportConverter.toModel(repservice.findOne(toNumber(rvid))); // id をもとにレポートデータを取得
 
-        //パラメータの値をもとに日報情報のインスタンスを作成する
-        Like like = new Like();
+        Like like = likeservice.getLike(employee, report);
 
-        like.setEmployee(employee);
-        like.setReport(report);
+        likeservice.destroy(like); //日報情報削除
 
-        //日報情報登録
-        likeservice.destroy(like);
-
-//        putRequestScope(AttributeConst.REP_COUNT, 1); //全ての日報データの件数
-//        forward(ForwardConst.FW_REP_INDEX);
         redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);
     }
 }

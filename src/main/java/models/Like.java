@@ -27,6 +27,12 @@ import lombok.Setter;
     @NamedQuery(
             name = "like.getAllMylikes",
             query = "SELECT m FROM Like AS m WHERE m.employee = :" + JpaConst.JPQL_PARM_EMPLOYEE + " ORDER BY m.id DESC"),
+    @NamedQuery(
+            name = "like.getLikes",
+            query = "SELECT m FROM Like AS m WHERE m.report = :" + JpaConst.JPQL_PARM_REPORT + " AND m.employee = :" + JpaConst.JPQL_PARM_EMPLOYEE),
+    @NamedQuery(
+            name = "like.countEmployees",
+            query = "SELECT COUNT(DISTINCT m.employee) FROM Like AS m")
 })
 @Getter //全てのクラスフィールドについてgetterを自動生成する(Lombok)
 @Setter //全てのクラスフィールドについてsetterを自動生成する(Lombok)

@@ -51,11 +51,14 @@ public class ReportAction extends ActionBase {
         List<ReportView> reports = service.getAllPerPage(page);
 //        boolean isLike = true;
         EmployeeView loginEmployee = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
-        List<Like> rid = servicelike.getLikedReport(loginEmployee);
+        List<Like> rid = servicelike.getLikedReport(loginEmployee); // 全いいねされた日報データを取得
         request.setAttribute("isLike", rid);
 
         //全日報データの件数を取得
         long reportsCount = service.countAll();
+
+        long likeCount = servicelike.countNumOfEmp();
+        request.setAttribute("likeCount", likeCount);
 
         putRequestScope(AttributeConst.REPORTS, reports); //取得した日報データ
         putRequestScope(AttributeConst.REP_COUNT, reportsCount); //全ての日報データの件数

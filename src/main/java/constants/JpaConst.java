@@ -49,6 +49,7 @@ public interface JpaConst {
     String JPQL_PARM_CODE = "code"; //社員番号
     String JPQL_PARM_PASSWORD = "password"; //パスワード
     String JPQL_PARM_EMPLOYEE = "employee"; //従業員
+    String JPQL_PARM_REPORT = "report";
 
     //NamedQueryの nameとquery
     //全ての従業員をidの降順に取得する
@@ -76,5 +77,8 @@ String Q_EMP_COUNT_REGISTERED_BY_CODE_DEF = "SELECT COUNT(e) FROM Employee AS e 
     String Q_REP_COUNT_ALL_MINE = ENTITY_REP + ".countAllMine";
     String Q_REP_COUNT_ALL_MINE_DEF = "SELECT COUNT(r) FROM Report AS r WHERE r.employee = :" + JPQL_PARM_EMPLOYEE;
     String Q_REP_GET_ALL_LIKE = ENTITY_LIKE + ".getAllMylikes";
+    String Q_REP_GET__LIKE = ENTITY_LIKE + ".getLikes";
+    String Q_REP_COUNT__LIKE = ENTITY_LIKE + ".countEmployees";
+
 }
 
